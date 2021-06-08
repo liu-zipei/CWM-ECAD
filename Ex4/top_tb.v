@@ -27,7 +27,7 @@ module top_tb();
 		err = 0;
 		%10
 		if(color!={001}) begin
-			$display("***TEST FAILED! reset not working***")
+			$display("***TEST FAILED! reset not working***");
 			err = 1;
 		end
 		rst = 0;
@@ -35,7 +35,7 @@ module top_tb();
 		color_prev = color
 		#10
 		if(color_prev!=color&&!(color=={000}|color=={111})) begin
-			$display("***TEST FAILED! button not working***")
+			$display("***TEST FAILED! button not working***");
 			err = 1;
 		end
 		button = 1;
@@ -43,16 +43,21 @@ module top_tb();
 			#10
 
 			if(color=={000}|color=={111}) begin
-					$display("***TEST FAILED! not skipping 000&111***")
+					$display("***TEST FAILED! not skipping 000&111***");
 					err = 1;
 			end
-			if((color-color_prev)!=1|(color=={001}) begin
+			if((color-color_prev)!=1|(color=={001}&color_prev!={110}) begin
+					$display("***TEST FAILED! color does not plus one each time***");
+					err = 1;
 			end
-
-
 			color_prev = color
-
 		end
-
 	end
-
+	initial begin
+		#50
+		if(!err)
+			$diplay("***TEST PASSED!***);
+		$finish;
+	end
+	led testled(clk,rst,button,color);
+endmodule
