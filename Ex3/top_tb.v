@@ -18,8 +18,8 @@ module top_tb(
 
 //Todo: Regitsers and wires
 	reg clk, rst, change, on_off,counter_prev,err;
-	wire counter_out;
-	reg [2:0] state = 0;
+	wire [7:0] counter_out;
+	reg [2:0] state;
 //Todo: Clock generation
 	initial	begin
 		clk = 1'b0;
@@ -29,13 +29,14 @@ module top_tb(
     
 //Todo: User logic
 	initial begin
+		state = 0;
 		rst = state[2];
 		change = state[1];
 		on_off = state[0];
 		err = 0;
-		counter_prev = 0;
+		counter_prev [7:0] = 0;
 		forever begin
-			if(rst&&counter_out) begin
+			if(rst&&(counter_out!=0)) begin
 				$display("***TEST FAILED! did not reset.***");
 				err = 1;
 			end
