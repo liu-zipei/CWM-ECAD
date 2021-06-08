@@ -17,8 +17,9 @@ module top_tb(
 	parameter CLK_PERIOD = 10;
 
 //Todo: Regitsers and wires
-	reg clk, rst, change, on_off,counter_prev,err;
+	reg clk, rst, change, on_off, err;
 	wire [7:0] counter_out;
+	reg [7:0] counter_prev;
 	reg [2:0] state;
 //Todo: Clock generation
 	initial	begin
@@ -34,8 +35,9 @@ module top_tb(
 		change = state[1];
 		on_off = state[0];
 		err = 0;
-		counter_prev [7:0] = 0;
+		counter_prev = 0;
 		forever begin
+			#10
 			if(rst&&(counter_out!=0)) begin
 				$display("***TEST FAILED! did not reset.***");
 				err = 1;
@@ -46,14 +48,14 @@ module top_tb(
 			end
 			if(on_off^(counter_out>counter_prev)) begin
 				$display("***TEST FAILED! counter not adding or subtracting correctly.***");
-			end
-			counter_prev = counter_out;
-			state = state+1;
+				err = 1;
+				counter_prev = counter_out;
+				state = state+1;
 			rst = state[2];
 			change = state[1];
 			on_off = state[0];
-			#10
 		end
+	end
 	end		
 
 //Todo: Finish test, check for success
@@ -64,5 +66,5 @@ module top_tb(
 		$finish;
 	end
 //Todo: Instantiate counter module
- 	moniter test(rst,change,on_off,clk,counter_out);
-endmodule 
+ 	monitor test(rst,change,on_off,clk,counter_out);
+endmodule
