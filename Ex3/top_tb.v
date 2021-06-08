@@ -49,13 +49,13 @@ module top_tb(
 			if(on_off^(counter_out>counter_prev)) begin
 				$display("***TEST FAILED! counter not adding or subtracting correctly.***");
 				err = 1;
-				counter_prev = counter_out;
-				state = state+1;
+			end
+			counter_prev = counter_out;
+			state = state+1;
 			rst = state[2];
 			change = state[1];
 			on_off = state[0];
 		end
-	end
 	end		
 
 //Todo: Finish test, check for success
