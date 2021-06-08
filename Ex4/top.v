@@ -15,4 +15,14 @@
 //
 //  You need to write the whole file.
 //////////////////////////////////////////////////////////////////////////////////
+`timescale 1ns/100ps
+
+module led(input clk,rst,button,output reg [2:0] color);
+	always @(posedge clk or posedge rst) begin
+		if(rst|color=={111}|color=={000})
+				color = {001};
+		if(button)
+				color = color+1;
+			
+endmodule
 
