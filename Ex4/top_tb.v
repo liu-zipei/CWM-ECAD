@@ -45,11 +45,11 @@ module top_tb();
 		forever begin
 			#10
 
-			if(color=={000}|color=={111}) begin
+			if(color==3'b000|color==3'b111) begin
 					$display("***TEST FAILED! not skipping 000&111***");
 					err = 1;
 			end
-			if((color-color_prev)!=1|(color=={001}&color_prev!={110})) begin
+			if((color-color_prev)!=1&(!(color==3'b001&color_prev==3'b110))) begin
 					$display("***TEST FAILED! color does not plus one each time***");
 					err = 1;
 			end
