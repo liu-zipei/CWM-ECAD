@@ -18,23 +18,33 @@
 
 `timescale 1ns / 100ps
 
-module monitor (
+module monitor
+	#(
+	parameter INIT = 0
+	) 
+	(
     //Todo: add ports 
 	input rst,change,on_off,clk,
 	output reg [7:0] counter_out
     );
                     
     //Todo: add registers and wires, if needed
-
+	reg [7:0] buffer;
     //Todo: add user logic
+	initial begin
+		counter_out = INIT;
+	end	
+
 	always @(posedge clk /*or posedge rst*/) begin
+		buffer <= counter_out;
 		if(rst)
-			counter_out = 0;
-		if(change)
-				if(on_off)
-						counter_out = counter_out+1;
-				else
-						counter_out = counter_out-1;
+			counter_out <= 8'b0;
+		else if(change) begin
+			if(on_off)
+					counter_out <= buffer+8'b1;
+			else if(counter_out)
+					counter_out <= buffer-8'b1;
+		end
 	end
 
 endmodule

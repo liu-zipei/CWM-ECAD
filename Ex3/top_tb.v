@@ -18,7 +18,7 @@ module top_tb(
 
 //Todo: Regitsers and wires
 	reg clk, rst, change, on_off, err;
-	wire [7:0] counter_out;
+	wire [7:0] counter_out = 8'b0;
 	reg [7:0] counter_prev;
 	reg [2:0] state;
 //Todo: Clock generation
@@ -60,7 +60,7 @@ module top_tb(
 
 //Todo: Finish test, check for success
 	initial begin
-		#50
+		#500
 		if(!err)
 			$display("***TEST PASSED!***");
 		$finish;
