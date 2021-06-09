@@ -11,7 +11,7 @@
 module top_tb();
 	parameter CLK_PERIOD = 10;
 
-	reg clk,rst,button;
+	reg clk,rst,button,err;
 	wire [2:0] color;
 	reg [2:0] color_prev;
 
@@ -22,10 +22,12 @@ module top_tb();
 	end
 	
 	initial begin
+		err = 0;
+		//Test on rst=1 and button=0
 		rst = 1;
 		button = 1;
-		err = 0;
-		%10
+		color_prev = 3'b001;
+		#10
 		if(color!={001}) begin
 			$display("***TEST FAILED! reset not working***");
 			err = 1;
@@ -39,6 +41,7 @@ module top_tb();
 			err = 1;
 		end
 		button = 1;
+		//loop on button=1
 		forever begin
 			#10
 
@@ -46,7 +49,7 @@ module top_tb();
 					$display("***TEST FAILED! not skipping 000&111***");
 					err = 1;
 			end
-			if((color-color_prev)!=1|(color=={001}&color_prev!={110}) begin
+			if((color-color_prev)!=1|(color=={001}&color_prev!={110})) begin
 					$display("***TEST FAILED! color does not plus one each time***");
 					err = 1;
 			end
@@ -54,9 +57,9 @@ module top_tb();
 		end
 	end
 	initial begin
-		#50
+		#500
 		if(!err) begin
-			$diplay("***TEST PASSED!***");
+			$display("***TEST PASSED!***");
 			$finish;
 		end
 	end

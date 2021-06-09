@@ -18,11 +18,15 @@
 `timescale 1ns/100ps
 
 module led(input clk,rst,button,output reg [2:0] color);
+	initial begin
+		color = 3'b001;
+	end
+
 	always @(posedge clk or posedge rst) begin
-		if(rst|color=={111}|color=={000})
-				color = {001};
-		if(button)
-				color = color+1;
-			
+		if(rst|color==3'b111|color==3'b000)
+				color = 3'b001;
+		else if(button)
+				color = color+3'b001;
+	end			
 endmodule
 
