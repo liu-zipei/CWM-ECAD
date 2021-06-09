@@ -36,18 +36,18 @@ module monitor
 	end	
 
 	always @(posedge clk /*or posedge rst*/) begin
-		buffer <= counter_out;
+		buffer = counter_out;
 		if(rst) begin
-			counter_out <= 8'b0;
+			counter_out = 8'b0;
 		end
 		else begin
 			if(change) begin
 				if(on_off) begin
-					counter_out <= buffer+8'b1;
+					counter_out = buffer+8'b1;
 				end
 				else begin 
 					if(counter_out) begin
-						counter_out <= buffer-8'b1;
+						counter_out = buffer-8'b1;
 					end
 				end
 			end

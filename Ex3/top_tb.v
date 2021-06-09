@@ -36,6 +36,14 @@ module top_tb(
 		on_off = state[0];
 		err = 0;
 		counter_prev = 0;
+		
+		rst = 0;
+		change = 1;
+		on_off = 1;
+		#50
+		on_off = 0;
+		#30
+
 		forever begin
 			#10
 			if(rst&&(counter_out!=0)) begin
