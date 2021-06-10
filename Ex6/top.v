@@ -16,10 +16,10 @@
 //////////////////////////////////////////////////////////////////////////////////
 `timescale 1ns/100ps
 
-module module_name(input clk, enable,input [2:0]  color,output [23:0] rgb);
+module converter(input clk, enable, input [2:0] color, output [23:0] rgb);
 
 	//instantiate bram ip core
-	mybram converter(
+	mybram instantiated_mybram(
 	  .clka(clk),    // input wire clka
 	  .ena(enable),      // input wire ena
 	  .wea(1'b0),      // input wire [0 : 0] wea
