@@ -15,25 +15,25 @@
 `timescale 1ns/100ps
 
 module aircon(input clk, input [4:0] temperature, output reg heating,cooling);
-	reg [1:0] state;
+	reg [1:0] state; //state0 idle state1 heating state2 cooling
 	parameter S0 = 0,S1 = 1,S2 = 2;
 
 	always @(state) begin
 		case (state)
 			S0: 
 			begin
-				heating = 1;
+				heating = 0;
 				cooling = 0;
 			end
 			S1:
 			begin
-				heating = 0;
-				cooling = 1;
+				heating = 1;
+				cooling = 0;
 			end
 			S2:
 			begin
 				heating = 0;
-				cooling = 0;
+				cooling = 1;
 			end
 			default: 
 			begin
@@ -47,17 +47,22 @@ module aircon(input clk, input [4:0] temperature, output reg heating,cooling);
 		case(state)
 			S0:
 			begin
-				if(temperature>=5'd20) begin
-					state <= S2;
+				if(temperature<=5'd18) begin
+					state <= S1;
 				end
-				else begin
-					state <= S0;
+				else begin 
+					if(temperature>=5'd22) begin
+						state <= S2;
+					end
+					else begin
+						state <= S0;
+					end
 				end
 			end
 			S1:
 			begin
-				if(temperature<=5'd20) begin
-					state <= S2;
+				if(temperature>=5'd20) begin
+					state <= S0;
 				end
 				else begin
 					state <= S1;
@@ -65,18 +70,15 @@ module aircon(input clk, input [4:0] temperature, output reg heating,cooling);
 			end
 			S2:
 			begin
-				if(temperature<=5'd18) begin
+				if(temperature<=5'd20) begin
 					state <= S0;
 				end
-				else begin 
-					if(temperature>=5'd22) begin
-						state <= S1;
-					end
-					else begin
-						state <= S2;
-					end
+				else begin
+					state <= S2;
 				end
 			end
+			default:
+				state <= S0;
 		endcase
 	end
 endmodule
