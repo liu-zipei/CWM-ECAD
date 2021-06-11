@@ -47,10 +47,9 @@ module top_tb();
 
 	initial begin
 		#200
-		if(!err) begin
+		if(!err)
 			$display("***TEST PASSED!***");
-			$finish;
-		end
+		$finish;
 	end
 
 	aircon test_aircon(.clk(clk),.temperature(temperature),.heating(heating),.cooling(cooling));
