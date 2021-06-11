@@ -6,7 +6,7 @@
 // Description: A testbench module to test Ex7 - Lights Selector
 // You need to write the whole file
 //////////////////////////////////////////////////////////////////////////////////
-`timescale 1s/100ps
+`timescale 1ns/100ps
 
 module top_tb();
 	parameter CLK_PERIOD = 10;
