@@ -16,7 +16,7 @@ module top_tb();
 	reg [2:0] color_prev;
 
 	initial	begin
-		clk = 1'b0;
+		clk = 1'b1;
 		forever
 			#(CLK_PERIOD/2) clk=~clk;
 	end
@@ -58,10 +58,9 @@ module top_tb();
 	end
 	initial begin
 		#500
-		if(!err) begin
+		if(!err)
 			$display("***TEST PASSED!***");
-			$finish;
-		end
+		$finish;
 	end
 
 	led testled(clk,rst,button,color);
