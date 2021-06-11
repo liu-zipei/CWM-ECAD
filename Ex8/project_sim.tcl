@@ -19,6 +19,7 @@ puts "Creating Project"
 create_fileset -constrset -quiet constraints
 
 read_verilog "top.v"
+read_verilog "aircon.v"
 read_verilog "top_tb.v"
 
 update_compile_order -fileset sources_1

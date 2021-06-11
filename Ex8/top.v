@@ -17,6 +17,13 @@ module top(
     input clk_p,
     input clk_n,
      //Todo: add all other ports besides clk_n and clk_p 
+	input rst_n,
+	input  [4:0] temperature_4,
+	input  [4:0] temperature_3,
+	input  [4:0] temperature_2,
+	input  [4:0] temperature_1,
+	input  [4:0] temperature_0,
+	output heating, cooling
    );
     
 
@@ -37,5 +44,6 @@ module top(
       );
 
 //Add logic here
-
+	reg [24:0] temperature = {temperature_4, temperature_3, temperature_2, temperature_1, temperature_0};
+	aircon instantiated_aircon(.clk(clk),.temperature(temperature),.heating(heating),.cooling(cooling));
 endmodule
