@@ -21,5 +21,5 @@ module selector(input clk,sel,rst,button, output [23:0] light);
 	wire [23:0] rgb, out, a, b;
 	led myled(.clk(clk),.rst(rst),.button(button),.color(color));
 	converter myconverter(.clk(clk),.enable(1'b1),.color(color),.rgb(rgb));
-	multiplexer myultiplexer(.a(white),.b(rgb),.sel(sel),.out(light));
+	multiplexer mymultiplexer(.a(white),.b(rgb),.sel(sel),.out(light));
 endmodule

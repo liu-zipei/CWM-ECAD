@@ -35,22 +35,20 @@ module top_tb();
 		sel=1;
 		rst=1;
 		#10
-		if(light!=24'h0000FF) begin
+		if(light!=24'h000000) begin
 			err=1;
 			$display("***TEST FAILED***");
 		end
 		rst=0;
 		button=1;
-		light_prev=light;
+		color[0]=0-light[7:0];
+		color[1]=0-light[15:8];
+		color[2]=0-light[23:16];
+		color_prev=3'b110;
+		light_prev=24'hFFFF00;
 
 		forever begin
 			#10
-			color[0]=0-light[7:0];
-			color[1]=0-light[15:8];
-			color[2]=0-light[23:16];
-			color_prev[0]=0-light_prev[7:0];
-			color_prev[1]=0-light_prev[15:8];
-			color_prev[2]=0-light_prev[23:16];
 			if(color==3'b001) begin
 				if(color_prev==3'b110) begin
 					err=1;
@@ -63,6 +61,12 @@ module top_tb();
 					$display("***TEST FAILED***");
 				end
 			end
+			color[0]=0-light[7:0];
+			color[1]=0-light[15:8];
+			color[2]=0-light[23:16];
+			color_prev[0]=0-light_prev[7:0];
+			color_prev[1]=0-light_prev[15:8];
+			color_prev[2]=0-light_prev[23:16];
 			light_prev=light;
 		end
 	end
