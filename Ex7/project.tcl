@@ -18,9 +18,15 @@ puts "Creating Project"
 create_fileset -constrset -quiet constraints
 
 #Todo: Add your IP here
+create_ip -name blk_mem_gen -vendor xilinx.com -library ip -version 8.4 -module_name mybram
+set_property -dict [list CONFIG.Component_Name {mybram} CONFIG.Memory_Type {Single_Port_RAM} CONFIG.Use_Byte_Write_Enable {false} CONFIG.Write_Width_A {24} CONFIG.Write_Depth_A {6} CONFIG.Read_Width_A {24} CONFIG.Operating_Mode_A {WRITE_FIRST} CONFIG.Write_Width_B {24} CONFIG.Read_Width_B {24} CONFIG.Enable_B {Always_Enabled} CONFIG.Register_PortA_Output_of_Memory_Primitives {true} CONFIG.Register_PortB_Output_of_Memory_Primitives {false} CONFIG.Use_RSTA_Pin {false} CONFIG.Port_B_Clock {0} CONFIG.Port_B_Write_Rate {0} CONFIG.Port_B_Enable_Rate {0} CONFIG.EN_SAFETY_CKT {false}] [get_ips mybram]
+set_property -dict [list CONFIG.Write_Depth_A {8} CONFIG.Load_Init_File {true} CONFIG.Coe_File {/home/centos/CWM-ECAD/Ex6/mem.coe}] [get_ips mybram]
 
 read_verilog "top.v"
 read_verilog "top_tb.v"
+read_verilog "multiplexer.v"
+read_verilog "converter.v"
+read_verilog "led.v"
 
 update_compile_order -fileset sources_1
 update_compile_order -fileset sim_1
