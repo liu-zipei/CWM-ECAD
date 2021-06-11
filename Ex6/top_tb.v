@@ -44,10 +44,9 @@ module top_tb();
 
 	initial begin
 		#200
-		if(!err) begin
+		if(!err)
 			$display("***TEST PASSED!***");
-			$finish;
-		end
+		$finish;
 	end	 
 	converter test_converter(.clk(clk),.enable(enable),.color(color),.rgb(rgb));
 endmodule
